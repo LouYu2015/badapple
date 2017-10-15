@@ -7,14 +7,9 @@ import time
 
 # Wait timing to show next frame.
 def waitFrame(start, fps, next_frame):
-    while True:
-        # Get current time.
-        now = time.clock()
-        # Calcurate elapsed time from start of playing.
-        delta = now - start
-        # Exit this function delta reaches time to display a next frame.
-        if float(next_frame) / fps <= delta:
-            return
+    end = start + float(next_frame) / fps
+    while time.time() <= end:
+        pass
 
 def play(window, fname, adj):
 
@@ -24,7 +19,7 @@ def play(window, fname, adj):
     frame_hop = 256
 
     # Initialize start_time
-    start_time = time.clock()
+    start_time = time.time()
     #curses.delay_output(0)
 
     try:
@@ -56,7 +51,7 @@ def play(window, fname, adj):
                 if l[0] == 'R':
                     file_framecount = file_framecount + 1
                 continue
-                
+
     except curses.error:
         window.addstr(0,0,"Windows size is too small.X(")
         window.addstr(1,0,"Expand window size and try again.")
