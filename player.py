@@ -7,18 +7,13 @@ import time
 
 # Wait timing to show next frame.
 def waitFrame(start, fps, next_frame):
-	while True:
-		# Get current time.
-		now = time.clock()
-		# Calcurate elapsed time from start of playing.
-		delta = now - start
-		# Exit this function delta reaches time to display a next frame.
-		if float(next_frame) / fps <= delta:
-			return
+	end = start + float(next_frame) / fps
+	while time.time() <= end:
+		pass
 
 def play(window, fname, adj):
 	# Initialize start_time
-	start_time = time.clock()
+	start_time = time.time()
 	#curses.delay_output(0)
 
 	try:
@@ -61,4 +56,3 @@ fn_list = sys.argv[1]
 adj = int(sys.argv[2])
 
 curses.wrapper(play, fn_list, adj)
-
